@@ -33,3 +33,16 @@ function devolverDatos(url_api) {
     xhttp.send();
     })
 }
+
+// Llamo a función, en cada return se indica la ubicación de los datos que deben devolverse en el siguiente .then
+devolverDatos(API_URL).then(function(data1) {
+    console.log(data1.info.count);
+    return devolverDatos(API_URL + data1.results[0].id);
+    }).then(function(data2) {
+        console.log(data2.name);
+        return devolverDatos(data2.origin.url);
+    }).then(function(data3) {
+        console.log(data3.dimension);
+    }).catch((error1) => {
+        console.error(error1);
+})
